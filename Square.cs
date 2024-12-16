@@ -12,10 +12,12 @@ sealed class Square : Shape
 
     public override void Draw(DrawingContext dc)
     {
-        Pen pen = new Pen(Brushes.SandyBrown, 5, lineCap:PenLineCap.Square);
+        Pen pen = new Pen(Brushes.SandyBrown, 1, lineCap:PenLineCap.Square);
         Brush brush = new SolidColorBrush(Colors.DarkRed);
         
-        dc.DrawRectangle(brush, pen, new Rect(new Point(x - R/2, y - R/2), new Size(R, R)));
+        double diff = R * Math.Sqrt(2); 
+        
+        dc.DrawRectangle(brush, pen, new Rect(new Point(x-diff/2, y-diff/2), new Size(diff, diff)));
         Console.WriteLine("DRAWING SQUARE");
     }
 }

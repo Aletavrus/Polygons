@@ -124,3 +124,4 @@ D:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.pdb
 D:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.csproj.Up2Date
 D:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.genruntimeconfig.cache
 D:\Git Projects\Polygons\obj\Debug\net8.0\ref\Polygons.dll
+D:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.sourcelink.json

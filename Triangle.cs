@@ -15,20 +15,19 @@ sealed class Triangle : Shape
     
     public override void Draw(DrawingContext dc)
     {
-        Pen pen = new Pen(Brushes.BlueViolet, 5, lineCap:PenLineCap.Square);
+        Pen pen = new Pen(Brushes.BlueViolet, 1, lineCap:PenLineCap.Square);
         Brush brush = new SolidColorBrush(Colors.DodgerBlue);
 
-        double xDiff = Math.Sqrt(3) * R / 2;
-        double yDiff = R / 2;
-        
-        StreamGeometry geometry = new StreamGeometry();
-        using (var ctx = geometry.Open())
+        Point[] points = new Point[4]
         {
-            ctx.BeginFigure(new Point(X, Y-R), true); // Start at the top vertex
-            ctx.LineTo(new Point(X+xDiff, Y+yDiff));   // Draw to bottom-right vertex
-            ctx.LineTo(new Point(X-xDiff, Y+yDiff));    // Draw to bottom-left vertex
-            ctx.LineTo(new Point(X, Y-R));           // Close the triangle
-        }
+            new Point(x, y - R), 
+            new Point(x + Math.Sqrt(3)*R/2, y + R/2), 
+            new Point(x - Math.Sqrt(3)*R/2, y + R/2),
+            new Point(x, y - R)
+        };
+        
+        PolylineGeometry geometry = new PolylineGeometry(points, true);
+        
         
         dc.DrawGeometry(brush, pen, geometry);
         Console.WriteLine("DRAWING TRIANGLE");
