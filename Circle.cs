@@ -11,10 +11,18 @@ sealed class Circle : Shape
     
     public override void Draw(DrawingContext dc)
     {
-        Pen pen = new Pen(Brushes.White, 5, lineCap:PenLineCap.Square);
+        Pen pen = new Pen(Brushes.White, 1, lineCap:PenLineCap.Square);
         Brush brush = new SolidColorBrush(Colors.ForestGreen);
         
         dc.DrawEllipse(brush, pen, new Point(x, y), R, R);
-        Console.WriteLine("DRAWING CIRCLE");
+    }
+
+    public override bool IsInside(int x, int y)
+    {
+        if (Math.Pow(x - this.x, 2) + Math.Pow(y - this.y, 2) <= Math.Pow(R, 2))
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -18,6 +18,11 @@ sealed class Square : Shape
         double diff = R * Math.Sqrt(2); 
         
         dc.DrawRectangle(brush, pen, new Rect(new Point(x-diff/2, y-diff/2), new Size(diff, diff)));
-        Console.WriteLine("DRAWING SQUARE");
+    }
+
+    public override bool IsInside(int x, int y)
+    {
+        double compare = R*Math.Sqrt(2)/2;
+        return (Math.Abs(X - x) <= compare & Math.Abs(Y - y) <= compare);
     }
 }

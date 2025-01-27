@@ -5,6 +5,7 @@ namespace Polygons;
 abstract class Shape
 {
     protected int x, y;
+    protected bool captured = false;
     static int r;
 
     public int R
@@ -21,6 +22,15 @@ abstract class Shape
         get => y;
         set => y = value;
     }
+    
+    public int DiffX{get;set;}
+    public int DiffY{get;set;}
+
+    public bool Captured
+    {
+        get => captured;
+        set => captured = value;
+    }
     protected Shape(int x, int y)
     {
         this.x = x;
@@ -32,4 +42,5 @@ abstract class Shape
     }
 
     public abstract void Draw(DrawingContext dc);
+    public abstract bool IsInside(int x, int y);
 }

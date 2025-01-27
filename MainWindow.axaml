@@ -5,6 +5,9 @@
         xmlns:Polygons = "clr-namespace:Polygons"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Polygons.MainWindow"
-        Title="Polygons">
+        Title="Polygons"
+        PointerPressed="MousePressed"
+        PointerMoved="MouseMoved"
+        PointerReleased="MouseReleased">
         <Polygons:CustomControl Name="CustomControl"/>
 </Window>

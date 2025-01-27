@@ -30,6 +30,27 @@ sealed class Triangle : Shape
         
         
         dc.DrawGeometry(brush, pen, geometry);
-        Console.WriteLine("DRAWING TRIANGLE");
+    }
+
+    public override bool IsInside(int x, int y)
+    {
+        Point P = new Point(x, y);
+        Point top = new Point(this.X, this.Y-R);
+        Point right = new Point(this.X + Math.Sqrt(3) * R / 2, this.Y + R / 2);
+        Point left = new Point(this.X - Math.Sqrt(3) * R / 2, this.Y + R / 2);
+        double area = Area(left, right, top);
+        double area1 = Area(left, right, P);
+        double area2 = Area(left, top, P);
+        double area3 = Area(right, top, P);
+        if (area1 + area2 + area3 - area < 0.1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private double Area(Point p1, Point p2, Point p3)
+    {
+        return double.Abs((p1.X*(p2.Y-p3.Y) + p2.X*(p3.Y-p3.Y) + p3.X*(p1.Y-p2.Y))/2.0);
     }
 }
