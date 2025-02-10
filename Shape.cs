@@ -31,6 +31,7 @@ abstract class Shape
         get => captured;
         set => captured = value;
     }
+    public bool isBorder { get; set; }
     protected Shape(int x, int y)
     {
         this.x = x;

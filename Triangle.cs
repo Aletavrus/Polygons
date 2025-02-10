@@ -51,6 +51,6 @@ sealed class Triangle : Shape
 
     private double Area(Point p1, Point p2, Point p3)
     {
-        return double.Abs((p1.X*(p2.Y-p3.Y) + p2.X*(p3.Y-p3.Y) + p3.X*(p1.Y-p2.Y))/2.0);
+        return double.Abs((p1.X*(p2.Y-p3.Y) + p2.X*(p3.Y-p1.Y) + p3.X*(p1.Y-p2.Y))/2.0);
     }
 }
