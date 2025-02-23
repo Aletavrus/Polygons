@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 
 namespace Polygons;
 
@@ -9,6 +10,16 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+    }
+    
+    private void MenuClicked(object? sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem menuItem)
+        {
+            string shape = menuItem.Header.ToString();
+            CustomControl cc = this.FindControl<CustomControl>("CustomControl");
+            cc.SetShape(shape);
+        }
     }
 
     private void MousePressed(object? sender, PointerPressedEventArgs e)

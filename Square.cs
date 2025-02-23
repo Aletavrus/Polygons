@@ -12,12 +12,9 @@ sealed class Square : Shape
 
     public override void Draw(DrawingContext dc)
     {
-        Pen pen = new Pen(Brushes.SandyBrown, 1, lineCap:PenLineCap.Square);
-        Brush brush = new SolidColorBrush(Colors.DarkRed);
-        
         double diff = R * Math.Sqrt(2); 
         
-        dc.DrawRectangle(brush, pen, new Rect(new Point(x-diff/2, y-diff/2), new Size(diff, diff)));
+        dc.DrawRectangle(Brush, Pen, new Rect(new Point(x-diff/2, y-diff/2), new Size(diff, diff)));
     }
 
     public override bool IsInside(int x, int y)

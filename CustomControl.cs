@@ -12,91 +12,96 @@ public class CustomControl: UserControl
     private List<Shape[]> _lines = new List<Shape[]>();
     private Pen _pen = new Pen(Brushes.LawnGreen, 10, lineCap:PenLineCap.Square);
     private bool _pointReleased = false;
-    private static Random _random = new Random();
+    private string _shape = "Triangle";
+    private bool _menuClicked = false;
 
     public override void Render(DrawingContext drawingContext)
     {
-        if (_pointReleased && _polygons.Count >= 3)
+        if (!_menuClicked)
         {
-            foreach (Shape shape in _polygons)
+            if (_pointReleased && _polygons.Count >= 3)
             {
-                shape.isBorder = false;
-            }
-            
-            _lines.Clear();
-            _pointReleased = false;
-            
-            for (int i = 0; i < _polygons.Count - 1; i++)
-            {
-                Point pi = new Point(_polygons[i].X, _polygons[i].Y);
-                for (int j = i + 1; j < _polygons.Count; j++)
+                foreach (Shape shape in _polygons)
                 {
-                    Point pj = new Point(_polygons[j].X, _polygons[j].Y);
-                    double k = (pi.Y - pj.Y) / (pi.X - pj.X);
-                    double b = pi.Y - k * pi.X;
-                    bool above = false;
-                    bool below = false;
-                    if (pi.X == pj.X)
-                    {
-                        for (int d = 0; d < _polygons.Count; d++)
-                        {
-                            if (d != i && d != j)
-                            {
-                                Point pd = new Point(_polygons[d].X, _polygons[d].Y);
-                                if (pi.X > pd.X)
-                                {
-                                    above = true;
-                                }
-                                else
-                                {
-                                    below = true;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int d = 0; d < _polygons.Count; d++)
-                        {
-                            if (d != i && d != j)
-                            {
-                                Point pd = new Point(_polygons[d].X, _polygons[d].Y);
-                                double yd = k * pd.X + b;
-                                if (yd < pd.Y)
-                                {
-                                    above = true;
-                                }
-                                else
-                                {
-                                    below = true;
-                                }
-                            }
-                        }
-                    }
+                    shape.isBorder = false;
+                }
 
-                    if (above == !below)
+                _lines.Clear();
+                _pointReleased = false;
+
+                for (int i = 0; i < _polygons.Count - 1; i++)
+                {
+                    Point pi = new Point(_polygons[i].X, _polygons[i].Y);
+                    for (int j = i + 1; j < _polygons.Count; j++)
                     {
-                        _polygons[i].isBorder = true;
-                        _polygons[j].isBorder = true;
-                        _lines.Add(new Shape[2] {_polygons[i], _polygons[j]});
+                        Point pj = new Point(_polygons[j].X, _polygons[j].Y);
+                        double k = (pi.Y - pj.Y) / (pi.X - pj.X);
+                        double b = pi.Y - k * pi.X;
+                        bool above = false;
+                        bool below = false;
+                        if (pi.X == pj.X)
+                        {
+                            for (int d = 0; d < _polygons.Count; d++)
+                            {
+                                if (d != i && d != j)
+                                {
+                                    Point pd = new Point(_polygons[d].X, _polygons[d].Y);
+                                    if (pi.X > pd.X)
+                                    {
+                                        above = true;
+                                    }
+                                    else
+                                    {
+                                        below = true;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int d = 0; d < _polygons.Count; d++)
+                            {
+                                if (d != i && d != j)
+                                {
+                                    Point pd = new Point(_polygons[d].X, _polygons[d].Y);
+                                    double yd = k * pd.X + b;
+                                    if (yd < pd.Y)
+                                    {
+                                        above = true;
+                                    }
+                                    else
+                                    {
+                                        below = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (above == !below)
+                        {
+                            _polygons[i].isBorder = true;
+                            _polygons[j].isBorder = true;
+                            _lines.Add(new Shape[2] { _polygons[i], _polygons[j] });
+                        }
                     }
                 }
+
+                RemoveInsideBorders();
+
             }
-            
-            RemoveInsideBorders();
-            
+            else if (_polygons.Count < 3)
+            {
+                _lines.Clear();
+            }
+
+            RenderContent(drawingContext);
         }
-        else if (_polygons.Count < 3)
-        {
-            _lines.Clear();
-        }
-        
-        RenderContent(drawingContext);
+        _menuClicked = false;
     }
 
     public void CCLeftPressed(int x, int y) //check if something was captured
     {
-        bool flag = true;
+        bool outsideShape = true;
         _pointReleased = true;
         if (_polygons.Count != 0)
         {
@@ -105,26 +110,44 @@ public class CustomControl: UserControl
                 if (shape.IsInside(x, y))
                 {
                     shape.Captured = true;
-                    flag = false;
+                    outsideShape = false;
                     shape.DiffX = x - shape.X;
                     shape.DiffY = y - shape.Y;
                 }
             }
         }
-        if (flag)
+        if (outsideShape)
         {
-            int randomShapeIndex = _random.Next(0, 3);
-            switch (randomShapeIndex)
+            int[] limits = FindLimits(x, y);
+            int minX = limits[0];
+            int minY = limits[1];
+            int maxX = limits[2];
+            int maxY = limits[3];
+            if (x > minX && x < maxX && y > minY && y < maxY) //check if we are inside a whole polygon
             {
-                case 0:
-                    _polygons.Add(new Triangle(x, y));
-                    break;
-                case 1:
-                    _polygons.Add(new Circle(x, y));
-                    break;
-                default:
-                    _polygons.Add(new Square(x, y));
-                    break;
+                foreach (Shape shape in _polygons)
+                {
+                    shape.Captured = true;
+                    shape.DiffX = x - shape.X;
+                    shape.DiffY = y - shape.Y;
+                }
+            }
+            else
+            {
+                switch (_shape)
+                {
+                    case "Triangle":
+                        _polygons.Add(new Triangle(x, y));
+                        break;
+                    case "Square":
+                        _polygons.Add(new Square(x, y));
+                        break;
+                    case "Circle":
+                        _polygons.Add(new Circle(x, y));
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
             }
         }
         InvalidateVisual();
@@ -132,7 +155,7 @@ public class CustomControl: UserControl
 
     public void CCRightPressed(int x, int y)
     {
-        bool flag = false;
+        bool insideShape = false;
         _pointReleased = true;
         _polygons.Reverse();
         if (_polygons.Count != 0)
@@ -142,12 +165,12 @@ public class CustomControl: UserControl
                 if (shape.IsInside(x, y))
                 {
                     _polygons.Remove(shape);
-                    flag = true;
+                    insideShape = true;
                     break;
                 }
             }
             _polygons.Reverse();
-            if (flag)
+            if (insideShape)
             {
                 InvalidateVisual();
             }
@@ -156,7 +179,7 @@ public class CustomControl: UserControl
 
     public void CCMoved(int x, int y)
     {
-        bool flag = false;
+        bool shapeMoving = false;
         if (_polygons.Count != 0)
         {
             foreach (Shape shape in _polygons)
@@ -165,11 +188,11 @@ public class CustomControl: UserControl
                 {
                     shape.X = x - shape.DiffX;
                     shape.Y = y - shape.DiffY;
-                    flag = true;
+                    shapeMoving = true;
                 }
             }
 
-            if (flag)
+            if (shapeMoving)
             {
                 InvalidateVisual();
             }
@@ -223,5 +246,44 @@ public class CustomControl: UserControl
         {
             _polygons.Remove(shape);
         }
+    }
+
+    public void SetShape(string menuShape)
+    {
+        _shape = menuShape;
+        _menuClicked = true;
+    }
+
+    private int[] FindLimits(int x, int y)
+    {
+        int maxX = int.MinValue;
+        int maxY = int.MinValue;
+        int minX = int.MaxValue;
+        int minY = int.MaxValue;
+        if (_polygons.Count >= 3)
+        {
+            foreach (Shape shape in _polygons)
+            {
+                if (shape.X > maxX)
+                {
+                    maxX = shape.X;
+                }
+                if (shape.X < minX)
+                {
+                    minX = shape.X;
+                }
+
+                if (shape.Y > maxY)
+                {
+                    maxY = shape.Y;
+                }
+
+                if (shape.Y < minY)
+                {
+                    minY = shape.Y;
+                }
+            }
+        }
+        return [minX, minY, maxX, maxY];
     }
 }

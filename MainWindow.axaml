@@ -9,5 +9,22 @@
         PointerPressed="MousePressed"
         PointerMoved="MouseMoved"
         PointerReleased="MouseReleased">
-        <Polygons:CustomControl Name="CustomControl"/>
+        <Grid>
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="10000010111100001100001000011001010001000000100001110001000011010110000110010100000101101100000100001100111000011010110000111001"></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel>
+                        <Menu DockPanel.Dock="Top">
+                                <MenuItem Header="_Type">
+                                        <MenuItem Header="Triangle" Click="MenuClicked"/>
+                                        <Separator/>
+                                        <MenuItem Header="Circle" Click="MenuClicked"/>
+                                        <Separator/>
+                                        <MenuItem Header="Square" Click="MenuClicked"/>
+                                </MenuItem>
+                        </Menu>
+                </DockPanel>
+                <Polygons:CustomControl Grid.Row="1" Name="CustomControl"/>
+        </Grid>
 </Window>

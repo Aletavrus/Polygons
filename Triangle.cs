@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using Avalonia.Platform;
-using System;
-
-namespace Polygons;
+﻿namespace Polygons;
 using Avalonia;
 using System;
 using Avalonia.Media;
@@ -15,9 +11,6 @@ sealed class Triangle : Shape
     
     public override void Draw(DrawingContext dc)
     {
-        Pen pen = new Pen(Brushes.BlueViolet, 1, lineCap:PenLineCap.Square);
-        Brush brush = new SolidColorBrush(Colors.DodgerBlue);
-
         Point[] points = new Point[4]
         {
             new Point(x, y - R), 
@@ -29,7 +22,7 @@ sealed class Triangle : Shape
         PolylineGeometry geometry = new PolylineGeometry(points, true);
         
         
-        dc.DrawGeometry(brush, pen, geometry);
+        dc.DrawGeometry(Brush, Pen, geometry);
     }
 
     public override bool IsInside(int x, int y)
