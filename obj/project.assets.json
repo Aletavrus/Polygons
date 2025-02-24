@@ -4379,7 +4379,6 @@
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
       "outputPath": "D:\\Git Projects\\Polygons\\obj\\",
       "projectStyle": "PackageReference",
-      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],

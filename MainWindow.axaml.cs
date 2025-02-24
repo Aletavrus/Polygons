@@ -1,5 +1,6 @@
-using System;
-using Avalonia.Controls;
+    using System;
+    using System.Threading.Tasks;
+    using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 
@@ -7,6 +8,7 @@ namespace Polygons;
 
 public partial class MainWindow : Window
 {
+    private bool _menuClicked = false;
     public MainWindow()
     {
         InitializeComponent();
@@ -17,13 +19,22 @@ public partial class MainWindow : Window
         if (sender is MenuItem menuItem)
         {
             string shape = menuItem.Header.ToString();
+            _menuClicked = true;
             CustomControl cc = this.FindControl<CustomControl>("CustomControl");
             cc.SetShape(shape);
         }
     }
 
-    private void MousePressed(object? sender, PointerPressedEventArgs e)
+    private async void MousePressed(object? sender, PointerPressedEventArgs e)
     {
+        await Task.Delay(100);
+        
+        if (_menuClicked)
+        {
+            _menuClicked = false;
+            return;
+        }
+        
         CustomControl cc = this.FindControl<CustomControl>("CustomControl");
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
         {

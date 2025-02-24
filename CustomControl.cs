@@ -13,12 +13,9 @@ public class CustomControl: UserControl
     private Pen _pen = new Pen(Brushes.LawnGreen, 10, lineCap:PenLineCap.Square);
     private bool _pointReleased = false;
     private string _shape = "Triangle";
-    private bool _menuClicked = false;
 
     public override void Render(DrawingContext drawingContext)
     {
-        if (!_menuClicked)
-        {
             if (_pointReleased && _polygons.Count >= 3)
             {
                 foreach (Shape shape in _polygons)
@@ -95,8 +92,6 @@ public class CustomControl: UserControl
             }
 
             RenderContent(drawingContext);
-        }
-        _menuClicked = false;
     }
 
     public void CCLeftPressed(int x, int y) //check if something was captured
@@ -118,22 +113,22 @@ public class CustomControl: UserControl
         }
         if (outsideShape)
         {
-            int[] limits = FindLimits(x, y);
-            int minX = limits[0];
-            int minY = limits[1];
-            int maxX = limits[2];
-            int maxY = limits[3];
-            if (x > minX && x < maxX && y > minY && y < maxY) //check if we are inside a whole polygon
-            {
-                foreach (Shape shape in _polygons)
-                {
-                    shape.Captured = true;
-                    shape.DiffX = x - shape.X;
-                    shape.DiffY = y - shape.Y;
-                }
-            }
-            else
-            {
+            // int[] limits = FindLimits(x, y);
+            // int minX = limits[0];
+            // int minY = limits[1];
+            // int maxX = limits[2];
+            // int maxY = limits[3];
+            // if (x > minX && x < maxX && y > minY && y < maxY) //check if we are inside a whole polygon
+            // {
+            //     foreach (Shape shape in _polygons)
+            //     {
+            //         shape.Captured = true;
+            //         shape.DiffX = x - shape.X;
+            //         shape.DiffY = y - shape.Y;
+            //     }
+            // }
+            // else
+            // {
                 switch (_shape)
                 {
                     case "Triangle":
@@ -148,7 +143,7 @@ public class CustomControl: UserControl
                     default:
                         throw new NotImplementedException();
                 }
-            }
+            // }
         }
         InvalidateVisual();
     }
@@ -251,39 +246,25 @@ public class CustomControl: UserControl
     public void SetShape(string menuShape)
     {
         _shape = menuShape;
-        _menuClicked = true;
     }
 
-    private int[] FindLimits(int x, int y)
-    {
-        int maxX = int.MinValue;
-        int maxY = int.MinValue;
-        int minX = int.MaxValue;
-        int minY = int.MaxValue;
-        if (_polygons.Count >= 3)
-        {
-            foreach (Shape shape in _polygons)
-            {
-                if (shape.X > maxX)
-                {
-                    maxX = shape.X;
-                }
-                if (shape.X < minX)
-                {
-                    minX = shape.X;
-                }
-
-                if (shape.Y > maxY)
-                {
-                    maxY = shape.Y;
-                }
-
-                if (shape.Y < minY)
-                {
-                    minY = shape.Y;
-                }
-            }
-        }
-        return [minX, minY, maxX, maxY];
-    }
+    // private bool FindLimits(int x, int y)
+    // {
+    //     foreach (Shape[] line in _lines)
+    //     {
+    //         Point p1 = new Point(line[0].X, line[0].Y);
+    //         Point p2 = new Point(line[1].X, line[1].Y);
+    //
+    //         if (y >= Math.Min(p1.Y, p2.Y))
+    //         {
+    //             if (y <= Math.Max(p1.Y, p2.Y))
+    //             {
+    //                 if (x <= Math.Max(p1.X, p2.X))
+    //                 {
+    //                     double xIntersection = (y - p1.Y) * (p2.X )
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
