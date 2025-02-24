@@ -3,6 +3,7 @@ using Avalonia.Media;
 using System.Collections.Generic;
 using Avalonia;
 using System;
+using HarfBuzzSharp;
 
 namespace Polygons;
 
@@ -113,22 +114,18 @@ public class CustomControl: UserControl
         }
         if (outsideShape)
         {
-            // int[] limits = FindLimits(x, y);
-            // int minX = limits[0];
-            // int minY = limits[1];
-            // int maxX = limits[2];
-            // int maxY = limits[3];
-            // if (x > minX && x < maxX && y > minY && y < maxY) //check if we are inside a whole polygon
-            // {
-            //     foreach (Shape shape in _polygons)
-            //     {
-            //         shape.Captured = true;
-            //         shape.DiffX = x - shape.X;
-            //         shape.DiffY = y - shape.Y;
-            //     }
-            // }
-            // else
-            // {
+            bool inside = FindLimits(x, y);
+            if (inside) //check if we are inside a whole polygon
+            {
+                foreach (Shape shape in _polygons)
+                {
+                    shape.Captured = true;
+                    shape.DiffX = x - shape.X;
+                    shape.DiffY = y - shape.Y;
+                }
+            }
+            else
+            {
                 switch (_shape)
                 {
                     case "Triangle":
@@ -143,7 +140,7 @@ public class CustomControl: UserControl
                     default:
                         throw new NotImplementedException();
                 }
-            // }
+            }
         }
         InvalidateVisual();
     }
@@ -248,23 +245,31 @@ public class CustomControl: UserControl
         _shape = menuShape;
     }
 
-    // private bool FindLimits(int x, int y)
-    // {
-    //     foreach (Shape[] line in _lines)
-    //     {
-    //         Point p1 = new Point(line[0].X, line[0].Y);
-    //         Point p2 = new Point(line[1].X, line[1].Y);
-    //
-    //         if (y >= Math.Min(p1.Y, p2.Y))
-    //         {
-    //             if (y <= Math.Max(p1.Y, p2.Y))
-    //             {
-    //                 if (x <= Math.Max(p1.X, p2.X))
-    //                 {
-    //                     double xIntersection = (y - p1.Y) * (p2.X )
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    private bool FindLimits(int x, int y)
+    {
+        bool inside = false;
+        foreach (Shape[] line in _lines)
+        {
+            Point p1 = new Point(line[0].X, line[0].Y);
+            Point p2 = new Point(line[1].X, line[1].Y);
+    
+            if (y >= Math.Min(p1.Y, p2.Y))
+            {
+                if (y <= Math.Max(p1.Y, p2.Y))
+                {
+                    if (x <= Math.Max(p1.X, p2.X))
+                    {
+                        double xIntersection = (y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y) + p1.X;
+
+                        if (Convert.ToInt16(p1.X) == Convert.ToInt16(p2.X) || x <= xIntersection)
+                        {
+                            inside = !inside;
+                        }
+                    }
+                }
+            }
+        }
+
+        return inside;
+    }
 }
