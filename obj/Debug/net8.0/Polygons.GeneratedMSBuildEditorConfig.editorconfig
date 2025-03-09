@@ -13,12 +13,12 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Polygons
-build_property.ProjectDir = D:\Git Projects\Polygons\
+build_property.ProjectDir = E:\Git Projects\Polygons\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[D:/Git Projects/Polygons/App.axaml]
+[E:/Git Projects/Polygons/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[D:/Git Projects/Polygons/MainWindow.axaml]
+[E:/Git Projects/Polygons/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

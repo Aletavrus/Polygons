@@ -1,9 +1,10 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Media;
 
 namespace Polygons;
 
-abstract class Shape
+abstract class Shape : ICloneable
 {
     protected int x, y;
     protected bool captured = false;
@@ -74,4 +75,9 @@ abstract class Shape
 
     public abstract void Draw(DrawingContext dc);
     public abstract bool IsInside(int x, int y);
+    
+    public object Clone()
+    {
+        return MemberwiseClone(); // Creates a shallow copy
+    }
 }
