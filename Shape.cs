@@ -9,7 +9,7 @@ abstract class Shape : ICloneable
     protected int x, y;
     protected bool captured = false;
     static int _r;
-    static Pen pen;
+    private static Pen pen;
     private static Brush brush;
 
     public int R

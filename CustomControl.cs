@@ -1,11 +1,8 @@
-﻿using Avalonia.Controls;
+﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
-using Avalonia;
 using System;
-using System.Threading.Tasks;
-using Avalonia.Media.TextFormatting;
-using HarfBuzzSharp;
 
 namespace Polygons;
 
@@ -16,6 +13,7 @@ public class CustomControl: UserControl
     private Pen _pen = new Pen(Brushes.LawnGreen, 10, lineCap:PenLineCap.Square);
     private bool _pointReleased = false;
     private string _shape = "Triangle";
+    private string _algorithm = "Jarvis";
 
     public override void Render(DrawingContext drawingContext)
     {
@@ -29,7 +27,18 @@ public class CustomControl: UserControl
             _lines.Clear();
             _pointReleased = false;
             
-            Jarvis(drawingContext);
+            switch (_algorithm)
+            {
+                case "Jarvis":
+                    Jarvis();
+                    break;
+                case "Default":
+                    Default();
+                    break;
+                default:
+                    throw new Exception("Unknown Algorithm");
+            }
+            
             RemoveInsideBorders();
         }
         else if (_polygons.Count < 3)
@@ -190,6 +199,18 @@ public class CustomControl: UserControl
         _shape = menuShape;
     }
 
+    public void SetAlgorithm(string menuAlgorithm)
+    {
+        if (menuAlgorithm == "Chart")
+        {
+            Console.WriteLine("ChartWindow");
+            new ChartWindow().Show();
+            _algorithm = "Jarvis";
+        }
+        _algorithm = menuAlgorithm;
+        Console.WriteLine("Set Algos");
+    }
+
     private bool IsInsidePolygon(int x, int y)
     {
         bool inside = false;
@@ -218,13 +239,11 @@ public class CustomControl: UserControl
         return inside;
     }
 
-    private void Jarvis(DrawingContext drawingContext)
+    private void Jarvis()
     {
         int constA = FindA();
         int A = constA;
-
         int B = 0;
-            
         int C = 0;
 
         Shape tempShape = (Shape)_polygons[A].Clone();

@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -14,21 +13,35 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
     
-    private void MenuClicked(object? sender, RoutedEventArgs e)
+    private void MenuClicked(object? sender, PointerPressedEventArgs e)
+    {
+        _menuClicked = true;
+    }
+
+    private void ItemClicked(object? sender, RoutedEventArgs e)
     {
         if (sender is MenuItem menuItem)
         {
-            string shape = menuItem.Header.ToString();
-            _menuClicked = true;
             CustomControl cc = this.FindControl<CustomControl>("CustomControl");
-            cc.SetShape(shape);
+            string tag = menuItem.Tag.ToString();
+            string header = menuItem.Header.ToString();
+            switch (tag)
+            {
+                case "Type":
+                    cc.SetShape(header);
+                    break;
+                case "Algorithm":
+                    Console.WriteLine(header);
+                    cc.SetAlgorithm(header);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
         }
     }
 
-    private async void MousePressed(object? sender, PointerPressedEventArgs e)
+    private void MousePressed(object? sender, PointerPressedEventArgs e)
     {
-        await Task.Delay(100);
-        
         if (_menuClicked)
         {
             _menuClicked = false;

@@ -9,22 +9,23 @@
         PointerPressed="MousePressed"
         PointerMoved="MouseMoved"
         PointerReleased="MouseReleased">
-        <Grid>
-                <Grid.RowDefinitions>
-                        <RowDefinition Height="20"></RowDefinition>
-                        <RowDefinition Height="1000000000000000000000000000000000000000000000000000000000"></RowDefinition>
-                </Grid.RowDefinitions>
-                <DockPanel>
-                        <Menu DockPanel.Dock="Top">
-                                <MenuItem Header="_Type">
-                                        <MenuItem Header="Triangle" Click="MenuClicked"/>
-                                        <Separator/>
-                                        <MenuItem Header="Circle" Click="MenuClicked"/>
-                                        <Separator/>
-                                        <MenuItem Header="Square" Click="MenuClicked"/>
-                                </MenuItem>
-                        </Menu>
-                </DockPanel>
-                <Polygons:CustomControl Grid.Row="1" Name="CustomControl"/>
-        </Grid>
+        <DockPanel>
+                <Menu DockPanel.Dock="Top" PointerPressed="MenuClicked">
+                        <MenuItem Header="_Type">
+                                <MenuItem Tag="Type" Header="Triangle" Click="ItemClicked"/>
+                                <Separator/>
+                                <MenuItem Tag="Type" Header="Circle" Click="ItemClicked"/>
+                                <Separator/>
+                                <MenuItem Tag="Type" Header="Square" Click="ItemClicked"/>
+                        </MenuItem>
+                        <MenuItem Header="_Algorithm" PointerPressed="MenuClicked">
+                                <MenuItem Tag="Algorithm" Header="Default" Click="ItemClicked"/>
+                                <Separator/>
+                                <MenuItem Tag="Algorithm" Header="Jarvis" Click = "ItemClicked"/>
+                                <Separator/>
+                                <MenuItem Tag="Algorithm" Header="Chart" Click="ItemClicked"/>
+                        </MenuItem>
+                </Menu>
+                <Polygons:CustomControl Name="CustomControl"/>
+        </DockPanel>
 </Window>
