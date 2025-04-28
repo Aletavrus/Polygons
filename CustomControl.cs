@@ -203,12 +203,11 @@ public class CustomControl: UserControl
     {
         if (menuAlgorithm == "Chart")
         {
-            Console.WriteLine("ChartWindow");
             new ChartWindow().Show();
             _algorithm = "Jarvis";
+            return;
         }
         _algorithm = menuAlgorithm;
-        Console.WriteLine("Set Algos");
     }
 
     private bool IsInsidePolygon(int x, int y)
@@ -398,6 +397,12 @@ public class CustomControl: UserControl
     public void UpdateRadius(object? sender, RadiusEventArgs e)
     {
         Shape.R = e.R;
+        InvalidateVisual();
+    }
+
+    public void UpdateColor(object? sender, ColorEventArgs e)
+    {
+        Shape.Brush = new SolidColorBrush(e.Color);
         InvalidateVisual();
     }
 }

@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="100"
+        x:Class="Polygons.ColorWindow"
+        Title="ColorWindow"
+        Width = "500" Height = "100">
+    <DockPanel>
+        <ColorPicker Name="ColorPicker"
+                     DockPanel.Dock="Top"/>
+        <Grid ColumnDefinitions="250,250">
+            <Button Content="OK"
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Click="OkButton"/>
+            <Button Content="Cancel" 
+                    Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Click="CancelButton"/>
+        </Grid>
+    </DockPanel>
+</Window>

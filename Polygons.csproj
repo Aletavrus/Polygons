@@ -9,20 +9,24 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.10"/>
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.10"/>
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10"/>
-        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.10"/>
+        <PackageReference Include="Avalonia" Version="11.0.10" />
+        <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.0.10" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.10" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.10" />
+        <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.10" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10"/>
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.10" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="ChartWindow.axaml.cs">
-        <DependentUpon>Polygons.axaml</DependentUpon>
-      </Compile>
-      <Compile Update="RadiusWindow.axaml.cs">
-        <DependentUpon>RadiusWindow.axaml</DependentUpon>
-      </Compile>
+        <Compile Update="ChartWindow.axaml.cs">
+            <DependentUpon>Polygons.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="RadiusWindow.axaml.cs">
+            <DependentUpon>RadiusWindow.axaml</DependentUpon>
+        </Compile>
+        <Compile Update="ColorWindow.axaml.cs">
+            <DependentUpon>ColorWindow.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

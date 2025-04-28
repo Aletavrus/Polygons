@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Media;
 namespace Polygons;
 
 public partial class MainWindow : Window
@@ -35,11 +36,11 @@ public partial class MainWindow : Window
                     cc.SetAlgorithm(header);
                     break;
                 case "Settings":
+                    var windows = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).Windows;
+                    bool flag = false;
                     switch (header)
-                    {
+                    { 
                         case "Radius":
-                            bool flag = false;
-                            var windows = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).Windows;
                             foreach (Window wind in windows)
                             {
                                 if (wind.Title == "Radius Window")
@@ -52,6 +53,22 @@ public partial class MainWindow : Window
                             {
                                 var window = new RadiusWindow(Shape.R);
                                 window.RC += cc.UpdateRadius;
+                                window.Show();
+                            }
+                            break;
+                        case "Color":
+                            foreach (Window wind in windows)
+                            {
+                                if (wind.Title == "ColorPicker")
+                                {
+                                    flag = true;
+                                }
+                            }
+
+                            if (!flag)
+                            {
+                                var window = new ColorWindow(((SolidColorBrush)Shape.Brush).Color);
+                                window.ColorChanged += cc.UpdateColor;
                                 window.Show();
                             }
                             break;

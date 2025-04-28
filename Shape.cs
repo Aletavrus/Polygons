@@ -52,10 +52,14 @@ abstract class Shape : ICloneable
         pen.Thickness = thickness;
     }
 
-    public Brush Brush
+    public static Brush Brush
     {
         get => brush;
-        set => brush = value;
+        set
+        {
+            brush = value;
+            pen = new Pen(brush, 3);
+        }
     }
     public void ChangeFillColor(Color color)
     {

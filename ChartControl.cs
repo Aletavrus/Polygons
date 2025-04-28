@@ -9,7 +9,6 @@ public class ChartControl: UserControl
 {
     public override void Render(DrawingContext drawingContext)
     {
-        Console.WriteLine("Printing");
         GraphContent(drawingContext, GenerateData());
     }
     
@@ -20,7 +19,6 @@ public class ChartControl: UserControl
         List<Shape> testPolygons2 = new List<Shape>();
         for (int i = 10; i<100; i+=10)
         {
-            Console.WriteLine(i);
             for (int j = 1; j < i; j++)
             {
                 testPolygons.Add(GenerateShape());
