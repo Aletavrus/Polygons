@@ -1,8 +1,9 @@
 using System;
 using Avalonia.Controls;
+using Avalonia;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-
+using Avalonia.Controls.ApplicationLifetimes;
 namespace Polygons;
 
 public partial class MainWindow : Window
@@ -31,8 +32,32 @@ public partial class MainWindow : Window
                     cc.SetShape(header);
                     break;
                 case "Algorithm":
-                    Console.WriteLine(header);
                     cc.SetAlgorithm(header);
+                    break;
+                case "Settings":
+                    switch (header)
+                    {
+                        case "Radius":
+                            bool flag = false;
+                            var windows = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).Windows;
+                            foreach (Window wind in windows)
+                            {
+                                if (wind.Title == "Radius Window")
+                                {
+                                    flag = true;
+                                }
+                            }
+
+                            if (!flag)
+                            {
+                                var window = new RadiusWindow(Shape.R);
+                                window.RC += cc.UpdateRadius;
+                                window.Show();
+                            }
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
                     break;
                 default:
                     throw new NotImplementedException();

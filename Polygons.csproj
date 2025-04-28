@@ -21,5 +21,8 @@
       <Compile Update="ChartWindow.axaml.cs">
         <DependentUpon>Polygons.axaml</DependentUpon>
       </Compile>
+      <Compile Update="RadiusWindow.axaml.cs">
+        <DependentUpon>RadiusWindow.axaml</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

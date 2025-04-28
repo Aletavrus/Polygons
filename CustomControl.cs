@@ -394,4 +394,10 @@ public class CustomControl: UserControl
             }
         }
     }
+    
+    public void UpdateRadius(object? sender, RadiusEventArgs e)
+    {
+        Shape.R = e.R;
+        InvalidateVisual();
+    }
 }

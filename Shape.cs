@@ -12,9 +12,10 @@ abstract class Shape : ICloneable
     private static Pen pen;
     private static Brush brush;
 
-    public int R
+    public static int R
     {
         get => _r;
+        set => _r = value;
     }
     public int X
     {

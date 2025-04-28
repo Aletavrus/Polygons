@@ -25,6 +25,11 @@
                                 <Separator/>
                                 <MenuItem Tag="Algorithm" Header="Chart" Click="ItemClicked"/>
                         </MenuItem>
+                        <MenuItem Header="_Settings" PointerPressed="MenuClicked">
+                                <MenuItem Tag="Settings" Header="Radius" Click="ItemClicked"/>
+                                <Separator/>
+                                <MenuItem Tag="Settings" Header="Color" Click = "ItemClicked"/>
+                        </MenuItem>
                 </Menu>
                 <Polygons:CustomControl Name="CustomControl"/>
         </DockPanel>
