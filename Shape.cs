@@ -1,9 +1,12 @@
 ﻿using System;
-using Avalonia;
+using System.Text.Json.Serialization;
 using Avalonia.Media;
 
 namespace Polygons;
 
+[JsonDerivedType(typeof(Triangle), "Triangle")]
+[JsonDerivedType(typeof(Circle), "Circle")]
+[JsonDerivedType(typeof(Square), "Square")]
 abstract class Shape : ICloneable
 {
     protected int x, y;
@@ -17,11 +20,13 @@ abstract class Shape : ICloneable
         get => _r;
         set => _r = value;
     }
+    [JsonInclude]
     public int X
     {
         get => x;
         set => x = value;
     }
+    [JsonInclude]
     public int Y
     {
         get => y;

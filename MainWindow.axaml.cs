@@ -36,19 +36,11 @@ public partial class MainWindow : Window
                     cc.SetAlgorithm(header);
                     break;
                 case "Settings":
-                    var windows = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).Windows;
                     bool flag = false;
                     switch (header)
                     { 
                         case "Radius":
-                            foreach (Window wind in windows)
-                            {
-                                if (wind.Title == "Radius Window")
-                                {
-                                    flag = true;
-                                }
-                            }
-
+                            flag = FindWindow("RadiusWindow");
                             if (!flag)
                             {
                                 var window = new RadiusWindow(Shape.R);
@@ -57,14 +49,7 @@ public partial class MainWindow : Window
                             }
                             break;
                         case "Color":
-                            foreach (Window wind in windows)
-                            {
-                                if (wind.Title == "ColorPicker")
-                                {
-                                    flag = true;
-                                }
-                            }
-
+                            flag = FindWindow("ColorWindow");
                             if (!flag)
                             {
                                 var window = new ColorWindow(((SolidColorBrush)Shape.Brush).Color);
@@ -78,6 +63,19 @@ public partial class MainWindow : Window
                     break;
                 default:
                     throw new NotImplementedException();
+                case "File":
+                    switch (header)
+                    {
+                        case "Open":
+                            cc.LoadState();
+                            break;
+                        case "Save":
+                            cc.SaveState();
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
+                    break;
             }
         }
     }
@@ -111,5 +109,18 @@ public partial class MainWindow : Window
     { 
         CustomControl cc = this.FindControl<CustomControl>("CustomControl");
         cc.CCReleased(Convert.ToInt32(e.GetPosition(cc).X), Convert.ToInt32(e.GetPosition(cc).Y));
+    }
+
+    private bool FindWindow(string name)
+    {
+        var windows = ((IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime).Windows;
+        foreach (Window wind in windows)
+        {
+            if (wind.Title == name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

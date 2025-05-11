@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Polygons")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a27a1ef2da8e5ecc660d54c236725102c400d7bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4fa916d76f4049fcaad2496ee79e5e03f9dcc38f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Polygons")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Polygons")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

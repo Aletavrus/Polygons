@@ -3,6 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using System.Collections.Generic;
 using System;
+using System.IO;
+using System.Text.Json;
+using ProtoBuf;
 
 namespace Polygons;
 
@@ -403,6 +406,47 @@ public class CustomControl: UserControl
     public void UpdateColor(object? sender, ColorEventArgs e)
     {
         Shape.Brush = new SolidColorBrush(e.Color);
+        InvalidateVisual();
+    }
+
+    public void SaveState()
+    {
+        List<SaveShape> states = new List<SaveShape>();
+        foreach (Shape i in _polygons)
+        {
+            states.Add(new SaveShape(i.X, i.Y, i.GetType().Name));
+        }
+        SavedState state = new SavedState(states, Shape.R, Shape.Brush);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string json = JsonSerializer.Serialize(state, options);
+        File.WriteAllText("State.json", json);
+    }
+
+    public void LoadState()
+    {
+        string json = File.ReadAllText("State.json");
+        SavedState state = JsonSerializer.Deserialize<SavedState>(json, new JsonSerializerOptions{ WriteIndented = true });
+        
+        Shape.R = state.R;
+        Shape.Brush = new SolidColorBrush(Color.Parse(state.BrushColor));
+        
+        List<SaveShape> saveShapes = state.Polygons;
+        _polygons = new List<Shape>();
+        foreach (SaveShape i in saveShapes)
+        {
+            switch (i.Type)
+            {
+                case "Triangle":
+                    _polygons.Add(new Triangle(i.X, i.Y));
+                    break;
+                case "Square":
+                    _polygons.Add(new Square(i.X, i.Y));
+                    break;
+                case "Circle":
+                    _polygons.Add(new Circle(i.X, i.Y));
+                    break;
+            }
+        }
         InvalidateVisual();
     }
 }

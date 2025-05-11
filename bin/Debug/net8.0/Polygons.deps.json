@@ -9,10 +9,12 @@
       "Polygons/1.0.0": {
         "dependencies": {
           "Avalonia": "11.0.10",
+          "Avalonia.Controls.ColorPicker": "11.0.10",
           "Avalonia.Desktop": "11.0.10",
           "Avalonia.Diagnostics": "11.0.10",
           "Avalonia.Fonts.Inter": "11.0.10",
-          "Avalonia.Themes.Fluent": "11.0.10"
+          "Avalonia.Themes.Fluent": "11.0.10",
+          "protobuf-net": "3.2.52"
         },
         "runtime": {
           "Polygons.dll": {}
@@ -573,6 +575,25 @@
       },
       "Microsoft.NETCore.Platforms/2.1.2": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "protobuf-net/3.2.52": {
+        "dependencies": {
+          "protobuf-net.Core": "3.2.52"
+        },
+        "runtime": {
+          "lib/net8.0/protobuf-net.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.2.52.62683"
+          }
+        }
+      },
+      "protobuf-net.Core/3.2.52": {
+        "runtime": {
+          "lib/net8.0/protobuf-net.Core.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.2.52.62683"
+          }
+        }
+      },
       "SkiaSharp/2.88.7": {
         "dependencies": {
           "SkiaSharp.NativeAssets.Win32": "2.88.7",
@@ -1090,6 +1111,20 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "protobuf-net/3.2.52": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XbZurNU3B/VaL/5OJ0kshO+AWxsZroI1saKuLfZpDwH2ngb2K9bdF1nIW6elFOViZw7TQCmfVZapxrMKCDqecQ==",
+      "path": "protobuf-net/3.2.52",
+      "hashPath": "protobuf-net.3.2.52.nupkg.sha512"
+    },
+    "protobuf-net.Core/3.2.52": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zOpGtUo2QTgbsiI0D0yCe8aUTgDPov6kqIu1CDHI6isqhYcAHdirRrdnfsQXmAUfAWx1LwVYGgC6xe6fNS4UAg==",
+      "path": "protobuf-net.core/3.2.52",
+      "hashPath": "protobuf-net.core.3.2.52.nupkg.sha512"
     },
     "SkiaSharp/2.88.7": {
       "type": "package",

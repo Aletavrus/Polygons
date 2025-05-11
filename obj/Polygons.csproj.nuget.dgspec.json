@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[11.0.10, )"
             },
+            "Avalonia.Controls.ColorPicker": {
+              "target": "Package",
+              "version": "[11.0.10, )"
+            },
             "Avalonia.Desktop": {
               "target": "Package",
               "version": "[11.0.10, )"
@@ -62,6 +66,10 @@
             "Avalonia.Themes.Fluent": {
               "target": "Package",
               "version": "[11.0.10, )"
+            },
+            "protobuf-net": {
+              "target": "Package",
+              "version": "[3.2.52, )"
             }
           },
           "imports": [
@@ -80,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

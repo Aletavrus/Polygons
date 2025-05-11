@@ -23,5 +23,11 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [E:/Git Projects/Polygons/ChartWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[E:/Git Projects/Polygons/ColorWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [E:/Git Projects/Polygons/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[E:/Git Projects/Polygons/RadiusWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

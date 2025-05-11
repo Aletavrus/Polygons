@@ -252,3 +252,5 @@ E:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.pdb
 E:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.csproj.Up2Date
 E:\Git Projects\Polygons\obj\Debug\net8.0\Polygons.genruntimeconfig.cache
 E:\Git Projects\Polygons\obj\Debug\net8.0\ref\Polygons.dll
+E:\Git Projects\Polygons\bin\Debug\net8.0\protobuf-net.dll
+E:\Git Projects\Polygons\bin\Debug\net8.0\protobuf-net.Core.dll
